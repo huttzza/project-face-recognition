@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import os
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read('trainer/trainer.yml')
@@ -14,11 +13,11 @@ id = 0
 names = ['None','sumin','dongjun','minji']
 
 cam = cv2.VideoCapture(0)
-cam.set(3, 1980)
-cam.set(4, 720)
+cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1980)
+cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
-minW = 0.1 * cam.get(3)
-minH = 0.1 * cam.get(4)
+minW = 0.1 * cam.get(cv2.CAP_PROP_FRAME_WIDTH)
+minH = 0.1 * cam.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
 while True:
     ret, img = cam.read()
