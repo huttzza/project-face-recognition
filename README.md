@@ -1,6 +1,13 @@
-# [project] Face Recognization
+# [project] Face Recognition
 * 2020.12.27~
-* Team project
+* Team project : Sumin Kim, Haneul Kim, Dongjun Hwang
+---
+* python, opencv
+
+>1. Studying Git
+>2. Studying Machine Learning
+>3. clone the [someone's face recongintion project](https://blog.naver.com/ljy9378/221429970163)
+>4. modifying
 
 ## 1. Studying Git
 * 2020.12.28 

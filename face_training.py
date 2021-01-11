@@ -5,7 +5,13 @@ import os
 
 path = 'dataset' #경로 (dataset 폴더)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-detector = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_default.xml')
+'''
+recognizer_E = cv2.face.EigenFaceRecognizer_create()
+recognizer_F = cv2.face.FisherFaceRecognizer_create()
+'''
+cascadePath = 'haarcascades/haarcascade_frontalface_default.xml'
+detector = cv2.CascadeClassifier(cascadePath)
+
 
 def getImagesAndLabels(path):
     imagePaths = [os.path.join(path,f) for f in os.listdir(path)]
@@ -34,6 +40,12 @@ print('\n [INFO] Training faces. It will take a few seconds. Wait ...')
 faces, ids = getImagesAndLabels(path)
 
 recognizer.train(faces,np.array(ids)) #학습
-
 recognizer.write('trainer/trainer.yml')
+
+'''
+recognizer_E.train(faces,np.array(ids)) 
+recognizer_E.write('trainer/trainer_E.yml')
+recognizer_F.train(faces,np.array(ids)) 
+recognizer_F.write('trainer/trainer_F.yml')
+'''
 print('\n [INFO] {0} faces trained. Exiting Program'.format(len(np.unique(ids))))
