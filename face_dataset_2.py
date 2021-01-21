@@ -23,7 +23,7 @@ cam = cv2.VideoCapture(0)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1980)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
-#face_roi = []
+face_roi = []
 
 count = 0
 
@@ -32,13 +32,13 @@ while True :
     if not ret :
         break
     
-    '''
+    
     if len(face_roi) == 0 :
         faces = face_detector(img, 1)
     else :
         roi_img = img[face_roi[0]:face_roi[1], face_roi[2]:face_roi[3]]
         faces = face_detector(roi_img)
-    '''
+    
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_detector(gray, 1)
 
@@ -55,6 +55,16 @@ while True :
             cv2.circle(img, center=tuple(s), radius=1,color=(255,255,255),thickness=2)
     '''
     for face in faces: #https://m.blog.naver.com/PostView.nhn?blogId=zzing0907&logNo=221612308385&proxyReferer=https:%2F%2Fwww.google.com%2F
+        if len(face_roi) == 0:
+            dlib_shape = face_pose_predictor(img, face)
+            shape_2d = np.array([[p.x, p.y] for p in dlib_shape.parts()])
+        else :
+            dlib_shape = face_pose_predictor(roi_img, face)
+            shape_2d = np.array([[p.x + face_roi[2], p.y+face_roi[0]] for p in dlib_shape.parts()])
+
+        for s in shape_2d :
+            cv2.circle(img, center=tuple(s), radius=1,color=(255,255,255),thickness=2)
+        
         l = face.left()
         t = face.top()
         b = face.bottom()
